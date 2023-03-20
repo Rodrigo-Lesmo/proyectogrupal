@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Modificar Actividad</title>
+</head>
+<body>
+    <a href="/orden_ope" class="btn btn-info">VOLVER ATRÁS</a>
+    <a href="/inisesion" class="btn btn-info">Cerrar Sesión {{user.first_name}}</a>
+    
+        <form action="/actualizar/orden" method="post" class="col-6 mx-auto">
+            <h2 class="text-center">Modificar Orden</h2>
+            {% with messages = get_flashed_messages(category_filter=['orden']) %}
+            {% if messages %}
+            <div class="alert alert-danger" role="alert">
+                <strong>Atencion!!!!</strong>
+                {% for message in messages %}
+                <p>{{message}}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
+            <div class="form-group">
+                <h4> <label for="fecha_time">Fecha y Hora Orden:</label></h4>
+                <div id="fecha_time" name="fecha_time">
+                    <script>
+                        document.getElementById("fecha_time").innerHTML = Date();
+                    </script>
+                </div>
+                <input type="text" name="fecha_time" id="fecha_time" style="visibility:hidden">
+                <input type="text" name="total" id="total" style="visibility:hidden">
+        
+                <div class="form-group">
+                <h4>
+                 <label for="servicio_id">Servicio: {{modificar_orden.service_name}}</label><br>
+                 <label for="cant">Cantidad: {{modificar_orden.cant}}</label><br>
+                 <label for="cliente_id">Cliente: {{modificar_orden.Nombre_Apellido_Clie}}</label>
+                    <div class="form-text">
+                        <label for="total">total:</label>
+                        <input type="text" id="total" name="total" class="form-text" value="{{modificar_orden.total}}" disabled>
+                    </div>
+                </h4>
+                            
+                </div>
+
+              {{modificar_orden.descripcion}}
+
+                <input type="submit" value="Modificar Orden" class="btn btn-success">
+        </form>
+</body>
+
+</html>

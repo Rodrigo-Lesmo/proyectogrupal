@@ -1,0 +1,64 @@
+.cuadro1 {
+    width:auto;
+    background-color: #fff;
+    border: 2px solid #999;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    overflow: hidden;
+    margin-left: 20px;
+    margin-top: 0px;
+    text-align: left;
+}
+.btn1 {
+    width: 120px;
+    background-color: #e4db2b;
+    color: #fff;
+    border: 5px solid #000;
+    box-shadow: 3px 3px black;
+    justify-content: space-around
+}
+.btn2 {
+    width: 120px;
+    background-color: #2be472;
+    color: #fff;
+    border: 5px solid #000;
+    box-shadow: 3px 3px black;
+    justify-content: space-around
+}
+.block {
+    display: grid;
+}
+
+#contenedor {
+    width: 10%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    display: none;
+}
+
+.contenedor_imagen {
+    width: 50px;
+    height: auto;
+    position: relative;
+    vertical-align: top;
+    overflow: hidden;
+}
+
+.objeto1{
+    width: 10px;
+    height: 10px;
+
+}
+
+.texto {
+    height: 100px;
+    text-align: center
+}
+
+img.chico {
+    width: 50px;
+    height: 50px;
+}
