@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Crear pago</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{url_for('static',filename='css/navbar.css')}}">
+        <link rel = "icon" href ="{{url_for('static',filename='img/computer-line.png')}}"type = "image/x-icon">
+    </head>
+  <body>
+      <header>
+        <ul class="navbar">
+          
+            <li>
+                <a href="/pagina1" class="logo">
+                <span><img src="{{url_for('static',filename='img/computer-line.png')}}" width="40rem">STech</span>
+            </a>
+            </li>
+            <li><a href="/medio-pago">Crear medios de pago</a></li>
+            <li>
+                <a href="/inisesion" class="active">
+                <img src="{{url_for('static',filename='img/logout-box-line.png')}}">Cerrar sesión
+                </a>
+            </li>
+            
+        </ul>
+    </header>
+    <br><br><br><br><br><br>
+    
+    <span>
+      <a href="/pagina1" class="go-back">
+          <img src="{{url_for('static',filename='img/arrow-go-back-line.png')}}" title="Volver" alt="Volver">
+      </a>
+    </span>
+    <form action="/pago/agregar" method="post" class="col-6 mx-auto">
+        <h2 class="text-center">Agregar orden de pago</h2>
+        {% with messages = get_flashed_messages(category_filter=['orden']) %} 
+        {%if messages %}
+
+        <div class="warning" role="alert">
+            {% for message in messages %}
+            <p>{{message}}</p>
+            {% endfor %}
+        </div>
+        {% endif %} {% endwith %}
+
+        <div class="form-group">
+          <label for="nro_factura">Factura N°:</label>
+          <input type="text" name="nro_factura" class="form-control" />
+        </div>
+
+        <div class="form-group">
+          <label for="transaccion">Transaccion N°:</label>
+          <input type="text" name="transaccion" id="transaccion" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label for="timbrado">Timbrado N°:</label>
+          <input type="text" name="timbrado"  class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="medio_pago_id">Medio de pago</label>
+            <select class="form-control" name="medio_pago_id" >
+              {%for med in medio %}
+              <option value="" disabled selected hidden>Seleccionar Medio de pago</option>
+              <option value="{{med.id}}">{{med.medio}}</option>
+              {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+          <label for="ordenes_id">Ordenes</label>
+          <select class="form-control" name="ordenes_id" >
+            {%for orden in ordenes %}
+            <option value="" disabled selected hidden>Seleccionar Orden</option>
+            <option value="{{orden.id}}">{{orden.id}}</option>
+            {% endfor %}
+            
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="total">Total</label>
+          <input type="text" name="total" id="total" class="form-control" >
+      </div>
+      <!-- Replace "test" with your own sandbox Business account app client ID -->
+    <script src="https://www.paypal.com/sdk/js?client-id={{ paypal_business_client_id }}&currency={{ currency }}"></script>
+    <!-- Set up a container element for the button -->
+    <div class="d-flex align-content-stretch flex-wrap">
+      <div class="card-body">
+        <div id="paypal-button-container"></div>
+        <script>
+          paypal.Buttons({
+              // Sets up the transaction when a payment button is clicked
+              createOrder: (data, actions) => {
+                  return actions.order.create({
+                      purchase_units: [{
+                          amount: {
+                              value: total=document.getElementById("total").value // Can also reference a variable or function
+                          }
+                      }]
+                  });
+              },
+              // Finalize the transaction after payer approval
+              // Finalize the transaction on the server after payer approval
+              onApprove: (data, actions) => {
+                  return fetch(`/payment/${data.orderID}/capture`, {
+                      method: "post",
+                  })
+                      .then((response) => response.json())
+                      .then((orderData) => {
+                          // Successful capture! For dev/demo purposes:
+                          console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                          const transaction = orderData.purchase_units[0].payments.captures[0];
+                          document.getElementById("transaccion").value = transaction.id;
+                          alert(`Transaction ${transaction.status}: ${transaction.id}\n\nTransacción completa`);
+                          // When ready to go live, remove the alert and show a success message within this page. For example:
+                          //const element = document.getElementById('paypal-button-container');
+                          //element.innerHTML = '<p><h3><strong class="green_text"> Thank you for your payment! </strong></h3></p>';
+                          //actions.redirect url_for('agradecimiento.html');
+                      });
+              }
+          }).render('#paypal-button-container');
+        </script>
+
+      <input type="submit" value="Añadir Pago" class="btn btn-success" />
+        <br><br><br>
+      <table class="tablePago">
+        <thead>
+            <tr >
+                <th>Id</th>
+                <th>N° Factura</th>
+                <th>Fecha Hora</th>
+                <th>N° Transacción</th>
+                <th>Timbrado</th>
+                <th>Medio de pago</th>
+                <th>Orden de pago</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        {% for pago in pagos %}
+        <tr>
+            <td>{{ pago.id }}</td>
+            <td>{{ pago.nro_factura }}</td>
+            <td>{{ pago.fecha_hora }}</td>
+            <td>{{ pago.transaccion }}</td>
+            <td>{{ pago.timbrado }}</td>
+            <td>{{ pago.medio_pago_id }}</td>
+            <td>{{ pago.ordenes_id }}</td>
+            <td>{{ pago.total }}</td>
+
+    
+    
+            <td>
+               {%if usuario.level == 1%}
+                <a href="/pago/eliminar/{{ pago.id }}">Eliminar</a>
+              {%endif%}
+            </td>
+        </tr>
+        {% endfor %}
+    
+    </table>
+    </form>
+  </body>
+</html>

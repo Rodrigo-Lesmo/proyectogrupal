@@ -1,0 +1,225 @@
+    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+    body::-webkit-scrollbar{
+        width:0.6rem;
+    }
+
+    body::-webkit-scrollbar-track{
+        background-color: #1e1e24;
+    }
+    body::-webkit-scrollbar-thumb{
+        background: var(--main-color);
+    }   
+    *{
+        font-family: 'Poppins',sans-serif;
+        margin:0px;
+        padding:0px;
+        box-sizing: border-box;
+        text-decoration: none;
+        list-style-type: none;
+        
+    }
+    :root{
+        --bg-color:#fff;
+        --text-color:#222327;
+        --main-color:#75a1e2;
+    }
+    body{
+        min-height: 100vh;
+        
+        background-repeat: no-repeat;
+        color:var(--text-color);
+    }
+    header{
+        position:fixed;
+        width: 100%;
+        top:0;
+        right: 0;
+        z-index: 1000;
+        display: flex;
+        align-items: center;   
+        justify-content: space-between;
+        background: transparent;
+        padding: 20px 12%;
+        transition:all .50s ease;
+        background-color: #fff;
+    }
+    .logo{
+        display: flex;
+        align-items: center;
+    }
+    .logo i{
+        color:var(--main-color);
+        font-size: 28px;
+        margin-right: 3px;
+    }
+    .logo span{
+        color:var(--text-color);
+        font-size: 1.7rem;
+        font-weight: 600;
+    }
+    .navbar{
+        display: flex;
+        /*margin-top: 5px;*/
+    }
+    .navbar a{
+        color: var(--text-color);
+        font-size: 1.0rem;
+        font-weight: 500;
+        padding: 8px 0px;
+        margin: 0px 8px;
+        transition: all .50s ease;
+        text-decoration: none;
+    }
+
+    .navbar a:hover{
+        color:var(--main-color);
+        text-decoration: none;
+    }
+    .navbar a .active{
+        color: var(--main-color);
+    }
+    .main{
+        display: flex;
+        align-items: center;
+    }
+    .main a {
+        margin-right: 25px;
+        margin-left: 10px;
+        color:var(--text-color);
+        font-size: 1.1rem;
+        font-weight: 500;
+        transition: all .50s ease;
+    }
+    .user{
+        display: flex;
+        align-items: center;
+    }
+    .user i{
+        color:var(--main-color);
+        font-size: 38px;
+        margin-right: 7px;
+    }
+    .main a:hover{
+        color: var(--main-color);
+        text-decoration: none;
+    }
+    #menu-icon{
+        font-size:50px;
+        color:var(--text-color);
+        cursor: pointer;
+        z-index: 10001;
+        display:none;
+    }
+    @media(max-width: 1280px){
+        header{
+            padding:14px 2%;
+            transition: .2s;
+        }
+        .navbar a{
+            padding: 5px 0;
+            margin: 0px 20px;
+        }
+
+    }
+    @media(max-width: 1090px){
+        #menu-icon{
+            display: block;
+        }
+        .navbar{
+            position: absolute;
+            top:100%;
+            right: -100%;
+            width:270px;
+            height:29vh;
+            background: var(--main-color);   
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            border-radius: 10px;
+            transition: all .50s ease;
+        }
+        .navbar a{
+            display: block;
+            margin:12px 0;
+            padding: 0px 25px;
+            transition: all .50s ease;
+        }
+        .navbar a:hover{
+            color:var(--text-color);
+            transform: translateY(10px);
+            text-decoration: none;
+        }
+        .navbar a .active{
+            color:var(--text-color);
+        }
+        .navbar .open{
+            right:2%;
+        }
+    }
+    
+    input{
+        background-color: var(--main-color);
+        padding:10px 20px;
+        border: none;
+        cursor: pointer;
+        background-color: #0c6685;
+        color: white;
+    }
+    input:hover{
+        background-color: var(--bg-color);
+        color:#00171F;
+        cursor: pointer;
+    }
+    .welcome_user{
+        margin-left: 9.9rem;
+    }
+    .welcome_user strong{
+        color:#007EA7;
+        
+    }
+    a,a:hover {
+        text-decoration: none;
+    }
+
+    table{
+        margin-left: 2rem;
+        
+    }
+    .warning{
+        font-size: 12px;
+        background-color: rgb(134, 4, 4);
+        color: white;
+    }
+    .go-back{
+        text-align: right;
+        margin-left: 350px;
+    }
+    form{
+        padding: 20px 10px;
+    }
+    span a img:hover{
+        width: 30px;   
+    }
+
+    .tablePago{
+        width:max-content;
+        align-content: start;
+                
+    }
+    .tablePago th, .tablePago td {
+        margin: auto;
+        padding-top: 10px;
+        padding-bottom: 20px;
+        padding-left: 2px;
+        padding-right: 30px;
+        
+      }
+      .tablePago td:hover{
+            background-color: #bdd4f5;
+      }
+    /*////////////////////////////////////////////////////////////////////////////////*/
+      .imgprincipal{
+        margin-left: 8rem;
+        padding-left: 20px;
+      }
+ 

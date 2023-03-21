@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/login.css')}}">
+
+</head>
+
+<body>
+    <div id="rightHalf">
+       
+        <form action="/registro" method="post" class="register">
+            <span>
+                <a href="/pagina1" class="go-back">
+                    <img src="{{url_for('static',filename='img/arrow-go-back-line.png')}}" title="Volver" alt="Volver">
+                </a>
+            </span>
+            <h2 class="regtitle">Registro de usuarios</h2><br>
+            {% with messages = get_flashed_messages(category_filter=['registro']) %}
+            {% if messages %}
+            <span class="warning" role="alert">
+                {% for message in messages %}
+                <p>{{message}}</p>
+                {% endfor %}
+            </span>
+            {% endif %}
+            {% endwith %}
+            <span class="form-group">
+                <label for="first_name">Nombre:</label>
+                <input type="text" name="first_name" class="form-control">
+            </span><br><br>
+            <span class="form-group">
+                <label for="last_name">Apellido:</label>
+                <input type="text" name="last_name" class="form-control">
+            </span><br><br>
+            <span class="form-group">
+                <label for="email">Email:</label>
+                <input type="text" name="email" class="form-control">
+            </span><br><br>
+            <span class="form-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" name="password" class="form-control">
+            </span><br><br>
+            <span class="form-group">
+                <label for="confirm">Confirmar contraseña:</label>
+                <input type="password" name="confirm" class="form-control">
+            </span><br><br>
+                    <span class="lvl">
+                        <label for="level">Nivel:</label>
+                        <select name="level" id="level">
+                            <option value=1>1 Administrador</option>
+                            <option value=2>2 Operador</option>
+                            <option value=3>3 Cobrardor</option>
+                        </select>
+                    </span><br><br>
+            <input type="submit" value="Agregar Usuario" class="login-btn">
+        </form>
+    </div>
+    <div id="leftHalf">
+
+    </div>
+</body>
+
+</html>

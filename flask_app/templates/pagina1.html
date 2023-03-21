@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User home</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/navbar.css')}}">
+    <link rel = "icon" href ="{{url_for('static',filename='img/computer-line.png')}}"type = "image/x-icon">
+
+</head>
+
+<body>
+    <br>
+    <header>
+        <a href="/pagina1" class="logo">
+            <span><img src="{{url_for('static',filename='img/computer-line.png')}}" width="40rem">STech</span>
+        </a>
+        <ul class="navbar">
+            {% if user.level == 1 %}
+            <li><a href="/servicio" class="active">Crear servicios</a></li>
+            <li><a href="/cliente">Crear clientes</a></li>
+            <li><a href="/estado">Crear estados</a></li>
+            <li><a href="/crear-pago">Crear pagos</a></li>
+            <li><a href="/orden">Crear ordenes</a></li>
+            <li><a href="/registrar">Registrar usuario</a></li>
+            {% else %}
+            {% if user.level == 2 %}
+            <li><a href="/crear-pago" class="btn btn-info">Crear pagos</a></li>
+            {% else %}
+            <a href="/orden" class="btn btn-info">Crear órdenes</a>
+            {% endif %}
+            {% endif %}
+            <li><a href="/inisesion" class="btn btn-info">
+             <img src="{{url_for('static',filename='img/logout-box-line.png')}}">Salir
+            </a></li>
+        </ul>
+        <!--
+        <div class="main" hidden>
+            <a href="#" class="user" hidden>Login</a>
+            <a href="#" hidden>Register</a> 
+            <div class="bx bx-menu" id="menu-icon" hidden></div>
+        </div>-->
+    </header>
+    
+    <br><br><br>
+    <h1 class="welcome_user">Bienvenido, <strong>{{user.first_name}} {{user.last_name}}!</strong></h1>
+    <br><br>
+    <img src="{{url_for('static',filename='img/repairing-computer.jpg')}}" alt="man repairing computer" class="imgprincipal">
+</body>
+
+</html>

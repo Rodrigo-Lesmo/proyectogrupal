@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Agregar servicios</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/navbar.css')}}">
+    <link rel = "icon" href ="{{url_for('static',filename='img/computer-line.png')}}"type = "image/x-icon">
+</head>
+
+<body>
+    <header>
+        <ul class="navbar">
+            <li>
+                <a href="/pagina1" class="logo">
+                <span><img src="{{url_for('static',filename='img/computer-line.png')}}" width="40rem">STech</span>
+            </a></li>
+            <li>
+                <a href="/inisesion" class="active">
+                <img src="{{url_for('static',filename='img/logout-box-line.png')}}">Cerrar sesión
+                </a>
+            </li>
+        </ul>
+    </header>
+    <br><br><br><br><br><br>
+    <span>
+        <a href="/pagina1" class="go-back">
+            <img src="{{url_for('static',filename='img/arrow-go-back-line.png')}}" title="Volver" alt="Volver">
+        </a>
+    </span>
+
+    <form action="/servicio/agregar" method="post" class="col-6 mx-auto">
+        <h2 class="text-center">Agregar nuevo servicio</h2>
+                {% with messages = get_flashed_messages(category_filter=['servicio']) %}
+                {% if messages %}
+                <div class="warning" role="alert">
+                    {% for message in messages %}
+                    <p>{{message}}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% endwith %}
+                <br><br>
+        <div class="form-group">
+            <label for="service_name">Nombre de servicio:</label>
+            <input type="text" name="service_name" class="form-control">
+        </div><br>
+        <div class="form-group">
+                    <label for="description">Descripción de servicio:</label>
+                    <input type="text" name="description" class="form-control">
+        </div><br>
+        <div class="form-group">
+            <label for="precio">Precio:</label>
+            <input type="text" name="precio" class="form-control"></textarea>
+        </div>
+        <br>
+        <input type="submit" value="Añadir Servicio" class="btn btn-success">
+    </form>
+    <hr>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre del Servicio</th>
+            <th>Descripción</th>
+            <th>Precios</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    {% for servicio in servicio1 %}
+
+    <tr>
+        <td>{{ servicio.id }}</td>
+        <td>{{ servicio.service_name }}</td>
+        <td>{{ servicio.description }}</td>
+        <td>{{ servicio.precio }}</td>
+
+
+        <td>
+            {% if usuario.level == 1 %}
+            <a href="/servicio/modificar/{{ servicio.id }}">Modificar</a>
+            <a href="/servicio/eliminar/{{ servicio.id }}">Eliminar</a>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>
+<br><br>
+</body>
+
+</html>
